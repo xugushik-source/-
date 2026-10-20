@@ -1,0 +1,38 @@
+<!doctype html><html><head><meta charset="utf-8"><style>
+@font-face{font-family:PV;src:url(file:///home/user/pivka-dlya-ryvka-/print/fonts/noto-sans-armenian-armenian-900-normal.woff2);unicode-range:U+0530-058F,U+FB13-FB17}
+@font-face{font-family:PV;src:url(file:///home/user/pivka-dlya-ryvka-/print/fonts/noto-sans-cyrillic-900-normal.woff2);unicode-range:U+0400-04FF}
+@font-face{font-family:PV;src:url(file:///home/user/pivka-dlya-ryvka-/print/fonts/noto-sans-latin-900-normal.woff2);unicode-range:U+0000-024F,U+2000-206F,U+20BE}
+*{margin:0;box-sizing:border-box}
+html,body{width:1080px;height:1920px;overflow:hidden;background:#0b0d0e;font-family:PV,"Noto Color Emoji",sans-serif;color:#fff}
+.scene{position:absolute;inset:0;opacity:0}
+.bg{position:absolute;inset:-40px;background:url(pivka-scene.jpg) center/cover;filter:blur(6px) brightness(.38)}
+.sub{position:absolute;left:70px;right:70px;top:1270px;text-align:center}
+.sub .hy{font-size:76px;line-height:1.12;text-shadow:0 4px 24px rgba(0,0,0,.7)}
+.sub .ru{font-size:44px;line-height:1.2;color:#ffb51b;margin-top:22px;text-shadow:0 3px 16px rgba(0,0,0,.7)}
+.big{top:640px}.big .hy{font-size:96px}.big .ru{font-size:54px}
+.shot{position:absolute;left:110px;width:860px;height:1080px;top:150px;border-radius:44px;overflow:hidden;border:3px solid rgba(255,181,27,.6);box-shadow:0 30px 80px rgba(0,0,0,.6)}
+.shot img{position:absolute;left:0;width:860px}
+.chat{position:absolute;left:90px;right:90px;top:260px;height:900px;border-radius:44px;background:#151a1c;border:3px solid rgba(255,255,255,.12);padding:50px 44px}
+.chat .head{font-size:40px;color:#9aa3a8;margin-bottom:40px}
+.bubble{background:#1f5c45;border-radius:36px 36px 8px 36px;padding:36px 38px;font-size:44px;line-height:1.3;margin-left:60px}
+.bubble a{font-size:38px;color:#9fe0ff;text-decoration:underline;word-break:break-all}
+.brand{position:absolute;top:300px;left:0;right:0;text-align:center;font-size:120px;line-height:1;letter-spacing:-2px}
+.brand b{display:block;color:#ffb51b}
+.pill{display:inline-block;margin-top:34px;background:#ffb51b;color:#111;border-radius:999px;padding:22px 46px;font-size:52px}
+</style></head><body>
+<div class="scene" id="s1"><div class="bg"></div><div class="sub big"><div class="hy">Ընկերդ դեռ չի՞ պատվիրել մեզ մոտ 🤔</div><div class="ru">Друг ещё не заказывал у нас?</div></div></div>
+<div class="scene" id="s2"><div class="chat"><div class="head">💬 Արամ</div><div class="bubble">🎁 Քեզ նվեր եմ անում անվճար առաքում + խորտիկ առաջին պատվերիդ համար «Пивка для рывка»-ում 👇<br><a>pivkadlaryvka.ge/?ref=4P5TJX</a></div></div><div class="sub"><div class="hy">Ուղարկիր նրան քո հղումը 📲</div><div class="ru">Отправь ему свою ссылку</div></div></div>
+<div class="scene" id="s3"><div class="shot"><img id="i3" src="site-banner.png"></div><div class="sub"><div class="hy">Նա կստանա անվճար առաքում + ջերկի 🎁</div><div class="ru">Он получит бесплатную доставку + джерки</div></div></div>
+<div class="scene" id="s4"><div class="shot"><img id="i4" src="site-checkout.png"></div><div class="sub"><div class="hy">Իսկ քեզ՝ նրա պատվերի 50%-ը 💎</div><div class="ru">А тебе — 50% его заказа баллами</div></div></div>
+<div class="scene" id="s5"><div class="bg"></div><div class="brand">ПИВКА<b>ДЛЯ РЫВКА</b></div><div class="sub big" style="top:760px"><div class="hy">Միայն մինչև հոկտեմբերի 30-ը ⏳</div><div class="ru">Только до 30 октября · ссылка в шапке профиля</div><div class="pill">👆 Հղումը՝ պրոֆիլում</div></div></div>
+<script>
+const S=[['s1',0,2.8],['s2',2.8,6.4],['s3',6.4,10.4],['s4',10.4,14.2],['s5',14.2,17.8]];
+const ease=x=>x<0?0:x>1?1:x*x*(3-2*x);
+window.render=t=>{for(const [id,a,b] of S){const e=document.getElementById(id);const fi=ease((t-a)/.35),fo=1-ease((t-(b-.3))/.3);const o=Math.min(fi,id==='s5'?1:fo);e.style.opacity=t<a-.01||t>b?0:o;const p=(t-a)/(b-a);
+ const sub=e.querySelector('.sub');if(sub){sub.style.transform='translateY('+(40*(1-ease((t-a-.1)/.45)))+'px)'}
+ const bg=e.querySelector('.bg');if(bg)bg.style.transform='scale('+(1.04+.06*p)+')';
+ if(id==='s3'){const i=document.getElementById('i3');i.style.top=(-140-120*ease(p))+'px';i.style.transform='scale('+(1+.08*ease(p))+')';i.style.transformOrigin='50% 25%'}
+ if(id==='s4'){const i=document.getElementById('i4');i.style.top=(-360-160*ease(p))+'px'}
+ if(id==='s2'){const bb=e.querySelector('.bubble');bb.style.opacity=ease((t-a-.5)/.4);bb.style.transform='translateY('+(30*(1-ease((t-a-.5)/.4)))+'px)'}
+}};
+</script></body></html>
