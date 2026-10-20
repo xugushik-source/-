@@ -1,0 +1,29 @@
+<!doctype html><html><head><meta charset="utf-8"><style>
+@font-face{font-family:PV;src:url(file:///home/user/pivka-dlya-ryvka-/print/fonts/noto-sans-armenian-armenian-900-normal.woff2);unicode-range:U+0530-058F,U+FB13-FB17}
+@font-face{font-family:PV;src:url(file:///home/user/pivka-dlya-ryvka-/print/fonts/noto-sans-cyrillic-900-normal.woff2);unicode-range:U+0400-04FF}
+@font-face{font-family:PV;src:url(file:///home/user/pivka-dlya-ryvka-/print/fonts/noto-sans-latin-900-normal.woff2);unicode-range:U+0000-024F,U+2000-206F,U+20BE}
+*{margin:0;box-sizing:border-box}
+html,body{width:1080px;height:1920px;overflow:hidden;background:#0b0d0e;font-family:PV,"Noto Color Emoji",sans-serif;color:#fff}
+.bg{position:absolute;inset:-40px;background:url(pivka-scene.jpg) center/cover;filter:blur(5px) brightness(.32)}
+.cover .bg{filter:brightness(.42) saturate(1.1)}
+.cover .shade{position:absolute;inset:0;background:radial-gradient(ellipse at center,rgba(0,0,0,.55) 0%,rgba(0,0,0,.25) 70%)}
+.h{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:0 70px}
+.stop{font-size:200px;line-height:1}
+.t1{font-size:112px;line-height:1.1;margin-top:40px;text-shadow:0 6px 30px rgba(0,0,0,.8)}
+.t1 b{color:#ffb51b}
+.ru{font-size:56px;color:#ffb51b;margin-top:40px;text-shadow:0 4px 20px rgba(0,0,0,.8)}
+.brand{position:absolute;top:290px;left:0;right:0;text-align:center;font-size:58px;letter-spacing:2px;color:#fff;opacity:.95}
+.brand b{color:#ffb51b}
+.cover .t1{font-size:120px;text-shadow:0 6px 30px rgba(0,0,0,.9),0 0 4px rgba(0,0,0,.6)}
+.gift{position:absolute;bottom:300px;left:0;right:0;text-align:center}
+.gift span{display:inline-block;background:#ffb51b;color:#111;border-radius:999px;padding:20px 44px;font-size:50px}
+</style></head><body><div class="bg" id="bg"></div><div class="shade"></div>
+<div class="brand" id="brand" style="display:none">ПИВКА <b>ДЛЯ РЫВКА</b></div>
+<div class="h"><div class="stop" id="a1">⛔</div><div class="t1" id="b1">Մի՛ ուղարկիր<br>այս <b>լինկը</b><br>ընկերոջդ…</div><div class="ru" id="c1">Не отправляй этот линк другу…</div></div>
+<div class="gift" id="gift" style="display:none"><span>🎁 անվճար առաքում + ջերկի</span></div>
+<script>
+const ease=x=>x<0?0:x>1?1:x*x*(3-2*x);
+const pop=(el,t,d)=>{const k=(t-d)/.22;if(k<0){el.style.opacity=0;return}el.style.opacity=1;const s=k<1?0.6+0.55*ease(k):1.15-0.15*ease((t-d-.22)/.18);el.style.transform='scale('+s+')'};
+window.render=t=>{bg.style.transform='scale('+(1.03+.04*t/2)+')';pop(a1,t,0);pop(b1,t,.15);pop(c1,t,.45);b1.style.translate=(t>.15&&t<.5?Math.sin(t*90)*6:0)+'px 0'};
+window.cover=()=>{document.body.classList.add('cover');render(2);bg.style.transform='scale(1.05)';brand.style.display='block';gift.style.display='block'};
+</script></body></html>
