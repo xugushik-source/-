@@ -1,0 +1,46 @@
+<!doctype html><html><head><meta charset="utf-8"><style>
+@font-face{font-family:AR;src:url(file:///home/user/pivka-dlya-ryvka-/print/fonts/noto-sans-armenian-armenian-900-normal.woff2);unicode-range:U+0530-058F,U+FB13-FB17}
+@font-face{font-family:SN;src:url(file:///home/user/pivka-dlya-ryvka-/print/fonts/noto-sans-cyrillic-900-normal.woff2);unicode-range:U+0400-04FF}
+@font-face{font-family:SN;src:url(file:///home/user/pivka-dlya-ryvka-/print/fonts/noto-sans-latin-900-normal.woff2);unicode-range:U+0000-024F,U+2000-206F,U+20BE}
+*{margin:0;box-sizing:border-box}
+html,body{width:1080px;height:1920px;overflow:hidden;background:#fdf6f0;color:#4a332d;font-family:AR,SN,"Noto Color Emoji",sans-serif}
+.scene{position:absolute;inset:0;opacity:0}
+.word{font-family:"DejaVu Serif","Liberation Serif",Georgia,serif;letter-spacing:14px;font-size:64px;color:#4a332d;text-align:center}
+.c{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:0 80px}
+.hy{font-size:92px;line-height:1.12}.hy b{color:#8c4a5c}
+.ru{font-size:50px;color:#8c4a5c;margin-top:26px;font-family:SN,"Noto Color Emoji",sans-serif}
+.circle{width:560px;height:560px;border-radius:50%;background-size:cover;background-position:center;box-shadow:0 30px 80px rgba(74,51,45,.25);border:10px solid #fff;margin-bottom:60px}
+.sub{position:absolute;left:70px;right:70px;top:1290px;text-align:center}.sub .hy{font-size:74px}.sub .ru{font-size:44px;margin-top:18px}
+.shot{position:absolute;left:110px;width:860px;height:1080px;top:150px;border-radius:44px;overflow:hidden;border:3px solid #e8c6c6;box-shadow:0 30px 80px rgba(74,51,45,.18);background:#fdf6f0}
+.shot img{position:absolute;left:0;width:860px}
+.list{position:absolute;left:90px;right:90px;top:360px}
+.it{display:flex;gap:28px;align-items:flex-start;margin-bottom:60px;opacity:0}
+.it .k{width:96px;height:96px;flex:none;border-radius:50%;background:#e8c6c6;font-size:56px;line-height:96px;text-align:center}
+.it .hy{font-size:58px;text-align:left}.it .ru{font-size:38px;text-align:left;margin-top:8px}
+.phone{font-size:140px;color:#8c4a5c;line-height:1;margin:26px 0;font-family:SN,sans-serif}
+.pill{display:inline-block;background:#8c4a5c;color:#fff;border-radius:999px;padding:22px 50px;font-size:52px}
+.top{position:absolute;top:120px;left:0;right:0}
+</style></head><body>
+<div class="scene" id="s1"><div class="top word">DESERTO</div><div class="c"><div class="circle" id="e1" style="background-image:url(red-velvet-whole.jpg)"></div><div class="hy" id="h1">Ախալքալաքի <b>հրուշակագործներ</b>, ուշադրություն 🍰</div><div class="ru" id="r1">Кондитеры Ахалкалаки, внимание!</div></div></div>
+<div class="scene" id="s2"><div class="shot"><img id="i2" src="hero.png"></div><div class="sub"><div class="hy">Ձեր հրուշակարանը՝ <b>DESERTO</b>-ում</div><div class="ru">Ваша кондитерская — на DESERTO</div></div></div>
+<div class="scene" id="s3"><div class="shot"><img id="i3" src="cakes.png"></div><div class="sub"><div class="hy">Ձեր ցուցափեղկը՝ ձեր գներով</div><div class="ru">Своя витрина, свои цены</div></div></div>
+<div class="scene" id="s4"><div class="top word">DESERTO</div><div class="list">
+<div class="it"><div class="k">🎂</div><div><div class="hy">Ձեր տորթերն ու թխվածքները՝ օնլայն</div><div class="ru">Ваши торты и выпечка — онлайн</div></div></div>
+<div class="it"><div class="k">🕐</div><div><div class="hy">Պատվերներ՝ ճիշտ ժամին</div><div class="ru">Заказы на точное время</div></div></div>
+<div class="it"><div class="k">🛵</div><div><div class="hy">Ձեր կաբինետը՝ ձեզ և ձեր առաքիչներին</div><div class="ru">Свой кабинет — для вас и ваших курьеров</div></div></div>
+<div class="it"><div class="k">📣</div><div><div class="hy">Գովազդը՝ մեր կողմից</div><div class="ru">Рекламу делаем мы</div></div></div>
+</div></div>
+<div class="scene" id="s5"><div class="top word">DESERTO</div><div class="c"><div class="circle" style="width:380px;height:380px;background-image:url(napoleon-whole.jpg)"></div><div class="hy">Միացեք <b>առաջիններից</b></div><div class="ru">Присоединяйтесь одними из первых</div><div class="phone">591 244 075</div><div class="hy" style="font-size:60px">Հարություն · Арутюн</div><div style="margin-top:44px"><span class="pill">WhatsApp · Direct</span></div></div></div>
+<script>
+const S=[['s1',0,3],['s2',3,7],['s3',7,11.2],['s4',11.2,16],['s5',16,20]];
+const ease=x=>x<0?0:x>1?1:x*x*(3-2*x);
+const pop=(el,t,d)=>{const k=(t-d)/.25;if(k<0){el.style.opacity=0;return}el.style.opacity=1;const s=k<1?0.7+0.4*ease(k):1.1-0.1*ease((t-d-.25)/.2);el.style.transform='scale('+s+')'};
+window.render=t=>{for(const [id,a,b] of S){const e=document.getElementById(id);const fi=ease((t-a)/.35),fo=1-ease((t-(b-.3))/.3);e.style.opacity=t<a-.01||t>b?0:Math.min(fi,id==='s5'?1:fo);const p=(t-a)/(b-a);
+ if(id==='s1'){pop(e1,t,0);pop(h1,t,.25);pop(r1,t,.55)}
+ if(id==='s2'){i2.style.top=(-60-180*ease(p))+'px'}
+ if(id==='s3'){i3.style.top=(-180-200*ease(p))+'px'}
+ if(id==='s4'){e.querySelectorAll('.it').forEach((it,n)=>{const k=ease((t-a-.2-n*.9)/.35);it.style.opacity=k;it.style.transform='translateX('+(-60*(1-k))+'px)'})}
+ if(id==='s5'){e.querySelector('.c').style.transform='scale('+(1+.03*p)+')'}
+}};
+window.cover=()=>render(2.8);
+</script></body></html>
