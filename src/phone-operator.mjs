@@ -13,6 +13,8 @@ export async function phoneAPI(db,op,b,user){
   await audit(db,user,'PHONE_CUSTOMER_LOOKUP',{city_id:b.city_id}).run();
   return {orders:await Promise.all(ids.map(o=>orderView(db,o.id,user)))};
  }
+ // Owner 14.11: the operator can come back to a placed order (after a reload) to record the call result and confirm it, without any cabinet.
+ if(op==='recent'){const ids=(await q(db,"SELECT id FROM orders WHERE city_id=? AND source='PHONE_OPERATOR' ORDER BY created_at DESC LIMIT 15",text(b.city_id,80,true)).all()).results;return {orders:await Promise.all(ids.map(o=>orderView(db,o.id,user)))}}
  if(op==='drafts')return {drafts:(await q(db,'SELECT id,payload,version,updated_at FROM phone_drafts WHERE actor=? AND city_id=? ORDER BY updated_at DESC LIMIT 30',user.id,text(b.city_id,80,true)).all()).results.map(r=>({...r,payload:parse(r.payload)}))};
  if(op==='draft'){
   const id=b.id?text(b.id,80,true):uuid(),city=text(b.city_id,80,true),payload=JSON.stringify(b.payload||{});
