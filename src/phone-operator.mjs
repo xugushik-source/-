@@ -1,5 +1,7 @@
-import {q,parse,createOrder,orderView} from './commerce.mjs';
+import {q,parse,createOrder,orderView,PHONE_SCHEDULED} from './commerce.mjs';
 import {fail,text,uuid,now,integer} from './security.mjs';
+// The call for a later-day order is recorded but processing waits; the operator screen shows this state after a reload.
+const scheduledFor=async(db,id)=>(await q(db,"SELECT o.day FROM events e JOIN orders o ON o.id=e.order_id WHERE e.order_id=? AND e.event=? AND o.status='NEW' AND o.confirmed=0 LIMIT 1",id,PHONE_SCHEDULED).first())?.day??null;
 const audit=(db,user,event,data)=>q(db,'INSERT INTO operations_audit(id,at,actor,event,data) VALUES(?,?,?,?,?)',uuid(),now(),user.id,event,JSON.stringify(data));
 // Only the owner until a dedicated operator permission is introduced. Vendor staff
 // must never gain access to the entire customer base through this endpoint.
@@ -14,7 +16,7 @@ export async function phoneAPI(db,op,b,user){
   return {orders:await Promise.all(ids.map(o=>orderView(db,o.id,user)))};
  }
  // Owner 14.11: the operator can come back to a placed order (after a reload) to record the call result and confirm it, without any cabinet.
- if(op==='recent'){const ids=(await q(db,"SELECT id FROM orders WHERE city_id=? AND source='PHONE_OPERATOR' ORDER BY created_at DESC LIMIT 15",text(b.city_id,80,true)).all()).results;return {orders:await Promise.all(ids.map(o=>orderView(db,o.id,user)))}}
+ if(op==='recent'){const ids=(await q(db,"SELECT id FROM orders WHERE city_id=? AND source='PHONE_OPERATOR' ORDER BY created_at DESC LIMIT 15",text(b.city_id,80,true)).all()).results;return {orders:await Promise.all(ids.map(async o=>({...await orderView(db,o.id,user),scheduled_for:await scheduledFor(db,o.id)})))}}
  if(op==='drafts')return {drafts:(await q(db,'SELECT id,payload,version,updated_at FROM phone_drafts WHERE actor=? AND city_id=? ORDER BY updated_at DESC LIMIT 30',user.id,text(b.city_id,80,true)).all()).results.map(r=>({...r,payload:parse(r.payload)}))};
  if(op==='draft'){
   const id=b.id?text(b.id,80,true):uuid(),city=text(b.city_id,80,true),payload=JSON.stringify(b.payload||{});
